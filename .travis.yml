@@ -1,4 +1,4 @@
-language: rust
+language: minimal
 matrix:
   fast_finish: true
   allow_failures:
@@ -7,7 +7,9 @@ matrix:
     - rust: stable
       os: linux
       dist: focal
-      install: rustup component add rustfmt
+      install:
+        - RUST_X=stable mk/install-build-tools.sh
+        - rustup component add rustfmt
       script: cargo fmt -- --check
 
     # Verify that we build on Trusty, which has GCC 4.8 as the default GCC
@@ -61,27 +63,22 @@ matrix:
     # BEGIN GENERATED
 
     - env: TARGET_X=aarch64-apple-ios  FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
-      rust: stable
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=aarch64-apple-ios  FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
-      rust: stable
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=x86_64-apple-darwin  FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
-      rust: stable
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=x86_64-apple-darwin  FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
-      rust: stable
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=aarch64-linux-android CC_X=aarch64-linux-android21-clang FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       language: android
       android:
@@ -91,7 +88,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=aarch64-linux-android CC_X=aarch64-linux-android21-clang FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       language: android
       android:
@@ -101,7 +97,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=armv7-linux-androideabi CC_X=armv7a-linux-androideabi18-clang FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       language: android
       android:
@@ -112,7 +107,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=armv7-linux-androideabi CC_X=armv7a-linux-androideabi18-clang FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       language: android
       android:
@@ -123,7 +117,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=x86_64-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -132,7 +125,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=x86_64-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -141,7 +133,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=x86_64-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -150,7 +141,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=x86_64-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -159,7 +149,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=aarch64-unknown-linux-gnu CC_X=aarch64-linux-gnu-gcc FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -171,7 +160,6 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=aarch64-unknown-linux-gnu CC_X=aarch64-linux-gnu-gcc FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -183,7 +171,6 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=i686-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -194,7 +181,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=i686-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -205,7 +191,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=i686-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -216,7 +201,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=i686-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -227,7 +211,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=arm-unknown-linux-gnueabihf CC_X=arm-linux-gnueabihf-gcc FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -239,7 +222,6 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=arm-unknown-linux-gnueabihf CC_X=arm-linux-gnueabihf-gcc FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
-      rust: stable
       os: linux
       dist: focal
       addons:
@@ -251,27 +233,22 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=aarch64-apple-ios  FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
-      rust: nightly
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=aarch64-apple-ios  FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
-      rust: nightly
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=x86_64-apple-darwin  FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
-      rust: nightly
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=x86_64-apple-darwin  FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
-      rust: nightly
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=aarch64-linux-android CC_X=aarch64-linux-android21-clang FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       language: android
       android:
@@ -281,7 +258,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=aarch64-linux-android CC_X=aarch64-linux-android21-clang FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       language: android
       android:
@@ -291,7 +267,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=armv7-linux-androideabi CC_X=armv7a-linux-androideabi18-clang FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       language: android
       android:
@@ -302,7 +277,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=armv7-linux-androideabi CC_X=armv7a-linux-androideabi18-clang FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       language: android
       android:
@@ -313,7 +287,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=x86_64-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -322,7 +295,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=x86_64-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=1 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -332,7 +304,6 @@ matrix:
             - kcov
 
     - env: TARGET_X=x86_64-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -341,7 +312,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=x86_64-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -350,7 +320,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=x86_64-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -359,7 +328,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=aarch64-unknown-linux-gnu CC_X=aarch64-linux-gnu-gcc FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -371,7 +339,6 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=aarch64-unknown-linux-gnu CC_X=aarch64-linux-gnu-gcc FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -383,7 +350,6 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=i686-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -394,7 +360,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=i686-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=1 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -406,7 +371,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=i686-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -417,7 +381,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=i686-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -428,7 +391,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=i686-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -439,7 +401,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=arm-unknown-linux-gnueabihf CC_X=arm-linux-gnueabihf-gcc FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -451,7 +412,6 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=arm-unknown-linux-gnueabihf CC_X=arm-linux-gnueabihf-gcc FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
-      rust: nightly
       os: linux
       dist: focal
       addons:
@@ -463,27 +423,22 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=aarch64-apple-ios  FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
-      rust: beta
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=aarch64-apple-ios  FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
-      rust: beta
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=x86_64-apple-darwin  FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
-      rust: beta
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=x86_64-apple-darwin  FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
-      rust: beta
       os: osx
       osx_image: xcode12
 
     - env: TARGET_X=aarch64-linux-android CC_X=aarch64-linux-android21-clang FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       language: android
       android:
@@ -493,7 +448,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=aarch64-linux-android CC_X=aarch64-linux-android21-clang FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       language: android
       android:
@@ -503,7 +457,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=armv7-linux-androideabi CC_X=armv7a-linux-androideabi18-clang FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       language: android
       android:
@@ -514,7 +467,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=armv7-linux-androideabi CC_X=armv7a-linux-androideabi18-clang FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       language: android
       android:
@@ -525,7 +477,6 @@ matrix:
       dist: trusty
 
     - env: TARGET_X=x86_64-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -534,7 +485,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=x86_64-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -543,7 +493,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=x86_64-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -552,7 +501,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=x86_64-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -561,7 +509,6 @@ matrix:
             - clang-10
 
     - env: TARGET_X=aarch64-unknown-linux-gnu CC_X=aarch64-linux-gnu-gcc FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -573,7 +520,6 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=aarch64-unknown-linux-gnu CC_X=aarch64-linux-gnu-gcc FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -585,7 +531,6 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=i686-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -596,7 +541,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=i686-unknown-linux-gnu CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -607,7 +551,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=i686-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -618,7 +561,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=i686-unknown-linux-musl CC_X=clang-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -629,7 +571,6 @@ matrix:
             - libc6-dev-i386
 
     - env: TARGET_X=arm-unknown-linux-gnueabihf CC_X=arm-linux-gnueabihf-gcc FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:
@@ -641,7 +582,6 @@ matrix:
             - qemu-user-binfmt
 
     - env: TARGET_X=arm-unknown-linux-gnueabihf CC_X=arm-linux-gnueabihf-gcc FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
-      rust: beta
       os: linux
       dist: focal
       addons:

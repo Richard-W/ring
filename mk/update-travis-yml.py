@@ -86,7 +86,6 @@ def format_entries():
 # value *after* processing the |env:| directive here.
 entry_template = """
     - env: TARGET_X=%(target)s %(compilers)s FEATURES_X=%(features)s MODE_X=%(mode)s KCOV=%(kcov)s RUST_X=%(rust)s
-      rust: %(rust)s
       os: %(os)s"""
 
 entry_indent = "      "

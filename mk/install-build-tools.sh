@@ -10,6 +10,8 @@ armv7-linux-androideabi)
   ;;
 esac
 
+curl --proto '=https' --tlsv1.2 -sSf https://build.travis-ci.com/files/rustup-init.sh | sh -s -- --default-toolchain=$RUST_X --profile=minimal -y
+
 if [[ ! -z "${ANDROID_ABI-}" ]]; then
   # install the android sdk/ndk
   mkdir "$ANDROID_HOME/licenses" || true
@@ -21,6 +23,4 @@ if [[ ! -z "${ANDROID_ABI-}" ]]; then
     echo no | avdmanager create avd --force --name $TARGET_X -k $ANDROID_SYSTEM_IMAGE --abi $ANDROID_ABI
     avdmanager list avd
   fi
-
-  curl -sSf https://build.travis-ci.org/files/rustup-init.sh | sh -s -- --default-toolchain=$RUST_X -y
 fi
