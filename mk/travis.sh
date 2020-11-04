@@ -40,14 +40,10 @@ esac
 printenv
 
 if [[ ! "$TARGET_X" =~ "x86_64-" ]]; then
-  # By default cargo/rustc seems to use cc for linking, We installed the
-  # multilib support that corresponds to $CC_X but unless cc happens to match
-  # $CC_X, that's not the right version. The symptom is a linker error
-  # where it fails to find -lgcc_s.
-  if [[ ! -z "${CC_X-}" ]]; then
+  if [[ ! -z "${TARGET_CC-}" ]]; then
     mkdir .cargo
     echo "[target.$TARGET_X]" > .cargo/config
-    echo "linker= \"$CC_X\"" >> .cargo/config
+    echo "linker= \"$TARGET_CC\"" >> .cargo/config
     cat .cargo/config
   fi
 fi
@@ -56,13 +52,7 @@ if [[ "$TARGET_X" =~ .*"-unknown-linux-musl" || ! "$TARGET_X" =~ "x86_64" ]]; th
   rustup target add "$TARGET_X"
 fi
 
-if [[ ! -z "${CC_X-}" ]]; then
-  export CC=$CC_X
-  $CC --version
-else
-  cc --version
-fi
-
+${TARGET_CC:-${CC:-cc}} --version
 cargo version
 rustc --version
 

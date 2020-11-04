@@ -81,9 +81,7 @@ def format_entries():
 
 # We use alternative names (the "_X" suffix) so that, in mk/travis.sh, we can
 # ensure that we set the specific variables we want and that no relevant
-# variables are unintentially inherited into the build process. Also, we have
-# to set |CC_X| instead of |CC| since Travis sets |CC| to its Travis CI default
-# value *after* processing the |env:| directive here.
+# variables are unintentially inherited into the build process.
 entry_template = """
     - env: TARGET_X=%(target)s %(compilers)s FEATURES_X=%(features)s MODE_X=%(mode)s KCOV=%(kcov)s RUST_X=%(rust)s
       rust: %(rust)s
@@ -159,7 +157,7 @@ def format_entry(os, target, compiler, rust, mode, features, kcov):
 
     compilers = []
     if cc != "":
-        compilers += ["CC_X=" + cc]
+        compilers += ["TARGET_CC=" + cc]
     compilers += ""
 
     return template % {
