@@ -54,6 +54,7 @@ targets = {
     "linux" : [
         ("aarch64-linux-android", [ "aarch64-linux-android21-clang" ]),
         ("armv7-linux-androideabi", [ "armv7a-linux-androideabi18-clang" ]),
+        ("wasm32-unknown-unknown", [clang]),
         ("x86_64-unknown-linux-gnu", linux_compilers),
         ("x86_64-unknown-linux-musl", [clang]),
         ("aarch64-unknown-linux-gnu", [ "aarch64-linux-gnu-gcc" ]),
@@ -106,7 +107,12 @@ def format_entry(os, target, compiler, rust, mode, features, kcov):
     linux_dist = "focal"
     android_linux_dist = "trusty"
 
-    if sys == "darwin":
+    target_ar = None
+    if target == "wasm32-unknown-unknown":
+        abi = "unknown"
+        sys = "unknown"
+        target_ar = compiler.replace("clang", "llvm-ar")
+    elif sys == "darwin":
         abi = sys
         sys = "macos"
     elif sys == "ios":
@@ -158,7 +164,8 @@ def format_entry(os, target, compiler, rust, mode, features, kcov):
     compilers = []
     if cc != "":
         compilers += ["TARGET_CC=" + cc]
-    compilers += ""
+    if target_ar:
+        compilers += ["TARGET_AR=" + target_ar]
 
     return template % {
             "compilers": " ".join(compilers),

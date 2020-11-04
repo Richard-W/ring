@@ -122,6 +122,14 @@ matrix:
         - sys-img-armeabi-v7a-android-18
       dist: trusty
 
+    - env: TARGET_X=wasm32-unknown-unknown TARGET_CC=clang-10 TARGET_AR=llvm-ar-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
+      rust: stable
+      os: linux
+
+    - env: TARGET_X=wasm32-unknown-unknown TARGET_CC=clang-10 TARGET_AR=llvm-ar-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=stable
+      rust: stable
+      os: linux
+
     - env: TARGET_X=x86_64-unknown-linux-gnu TARGET_CC=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=stable
       rust: stable
       os: linux
@@ -311,6 +319,14 @@ matrix:
         - build-tools-26.0.2
         - sys-img-armeabi-v7a-android-18
       dist: trusty
+
+    - env: TARGET_X=wasm32-unknown-unknown TARGET_CC=clang-10 TARGET_AR=llvm-ar-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
+      rust: nightly
+      os: linux
+
+    - env: TARGET_X=wasm32-unknown-unknown TARGET_CC=clang-10 TARGET_AR=llvm-ar-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=nightly
+      rust: nightly
+      os: linux
 
     - env: TARGET_X=x86_64-unknown-linux-gnu TARGET_CC=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=nightly
       rust: nightly
@@ -523,6 +539,14 @@ matrix:
         - build-tools-26.0.2
         - sys-img-armeabi-v7a-android-18
       dist: trusty
+
+    - env: TARGET_X=wasm32-unknown-unknown TARGET_CC=clang-10 TARGET_AR=llvm-ar-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
+      rust: beta
+      os: linux
+
+    - env: TARGET_X=wasm32-unknown-unknown TARGET_CC=clang-10 TARGET_AR=llvm-ar-10 FEATURES_X= MODE_X=RELWITHDEBINFO KCOV=0 RUST_X=beta
+      rust: beta
+      os: linux
 
     - env: TARGET_X=x86_64-unknown-linux-gnu TARGET_CC=clang-10 FEATURES_X= MODE_X=DEBUG KCOV=0 RUST_X=beta
       rust: beta
